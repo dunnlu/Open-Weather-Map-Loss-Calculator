@@ -1,8 +1,8 @@
 # Open-Weather-Map-Loss-Calculator
 
-Calculator to show the loss between OpenWeatherMap's One Call API and Historical Bulk Data
+##Calculator to show the loss between OpenWeatherMap's One Call API and Historical Bulk Data
 
-Three Locations Selected:
+##Three Locations Selected:
 1:
 Historical Data Purchased By: 
 Lat:
@@ -19,15 +19,15 @@ Lat:
 Long:
 
 
-One Call API Loader
+##One Call API Loader
 Input: Location, start date, number of timesteps, time between timesteps, api key
 Output: Matrix with features corresponding to columns and timesteps corresponding to rows
 
-Historical Bulk Data Loader
+##Historical Bulk Data Loader
 Input: Location, start date, number of timesteps, time between timesteps
 Output: Matrix with features corresponding to columns and timesteps corresponding to rows
 
-Loss Calculator
+##Loss Calculator
 Input: Start date, number of timesteps, time between timesteps
 Output: Mean Absolute Error between the two APIs at all three locations
 
