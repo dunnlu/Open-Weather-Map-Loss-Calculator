@@ -31,7 +31,7 @@ Matrix with features corresponding to columns and timesteps corresponding to row
   
 ## Loss Calculator
 ### Input: 
-Start date, number of timesteps, time between timesteps
+Feature, start date, number of timesteps, time between timesteps
 ### Output: 
 Mean Absolute Error between the two APIs at all three locations
 
