@@ -51,6 +51,10 @@ def retrieve_data_from_timestep(feature: str, lat: str, lon: str, dt: str, api_k
 
 
 def load_data(feature: str, lat: str, lon: str, start_dt: str, num_timesteps: int, step_size: int, api_key: str):
+
+    #Temporary --> Prevent Accidentally Too much data to start having to pay for it
+    assert(num_timesteps < 100)
+
     # Initialize Numpy array
         #Initial start point +1 for every timestep
     data = np.empty(num_timesteps)
