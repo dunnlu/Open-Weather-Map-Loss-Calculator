@@ -19,15 +19,15 @@ Long:  -122.6
   
 ## One Call API Loader
 ### Input: 
-Feature, Location, start date, number of timesteps, time between timesteps, api key
+Feature: str, lat: str, lon: str, start date: unix epoch: str, number of timesteps: int, time between timesteps: in days: int, api key: str
 ### Output: 
-One column Pandas DataFrame correlating with the feature
+Numpy Array correlating with the feature
   
 ## Historical Bulk Data Loader
 ### Input: 
-Feature, Location, start date, number of timesteps, time between timesteps
+Feature: str, lat: str, lon: str, start date: unix epoch: str, number of timesteps: int, time between timesteps: in days: int
 ### Output: 
-One column Pandas DataFrame correlating with the feature
+Numpy Array correlating with the feature
   
 ## Loss Calculator
 ### Input: 
