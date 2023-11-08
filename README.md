@@ -19,15 +19,15 @@ Long:  -122.6
   
 ## One Call API Loader
 ### Input: 
-Location, start date, number of timesteps, time between timesteps, api key
+Feature, Location, start date, number of timesteps, time between timesteps, api key
 ### Output: 
-Matrix with features corresponding to columns and timesteps corresponding to rows
+One column Pandas DataFrame correlating with the feature
   
 ## Historical Bulk Data Loader
 ### Input: 
-Location, start date, number of timesteps, time between timesteps
+Feature, Location, start date, number of timesteps, time between timesteps
 ### Output: 
-Matrix with features corresponding to columns and timesteps corresponding to rows
+One column Pandas DataFrame correlating with the feature
   
 ## Loss Calculator
 ### Input: 
