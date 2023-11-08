@@ -22,6 +22,17 @@ Long:  -122.6
 Feature: str, lat: str, lon: str, start date: unix epoch: str, number of timesteps: int, time between timesteps: in days: int, api key: str
 ### Output: 
 Numpy Array correlating with the feature
+### Tutorial:
+To use the loader include the following:
+```bash
+#Import loader
+import one_call_api_loader.py as ocal
+
+#Example Call
+data = ocal.load_data('temp','47.4','-121.4','1643803200',10,1,{api_key})
+```
+
+
   
 ## Historical Bulk Data Loader
 ### Input: 
