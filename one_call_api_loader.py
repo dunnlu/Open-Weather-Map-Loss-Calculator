@@ -1,6 +1,6 @@
 import requests
 import numpy as np
-
+import pandas as pd
 
 #################
 # INPUT:
@@ -26,6 +26,8 @@ def retrieve_data_from_timestep(feature: str, lat: str, lon: str, dt: str, api_k
         # Parse the JSON response
         data = response.json()
 
+        assert(data['data'][0][feature])
+
         #Return data from the feature
         return data['data'][0][feature]
        
@@ -35,6 +37,29 @@ def retrieve_data_from_timestep(feature: str, lat: str, lon: str, dt: str, api_k
         raise Exception(f"Error: {response.status_code}, {response.text}")
 
 
+#################
+# INPUT:
+    # time: start date in unix epoch
+    # num_timesteps: number of timesteps
+    # step_size: step size in days
+# OUTPUT:
+    # Python array of dates in unix epoch --> daylight savings account for, leap years accounted for
+#################
+
+def date_range(time: int, num_timesteps: int, step_size: int):
+    
+    #Generate Pandas DateTimeIndex of Intended Range
+    dates = pd.date_range(start=pd.to_datetime(time,unit='s'),periods=num_timesteps, freq=(str(step_size)+'D'))
+
+    #Convert array of dates to int and remove nano seconds --> //10**9
+    dates = dates.astype(np.int64)//10**9
+
+    #Remove loss found by pandas.date_range() and convert to list of unix epoch times as ints
+    actual_dates = []
+    for i in dates:
+        actual_dates.append(time + i - dates[0])
+
+    return actual_dates
 
 #################
 # INPUT:
@@ -62,10 +87,10 @@ def load_data(feature: str, lat: str, lon: str, start_dt: str, num_timesteps: in
     #Time int
     time = int(start_dt)
 
-    #Get all data
-    for i in range(0,num_timesteps):
-        data[i] = retrieve_data_from_timestep(feature, lat, lon, str(time), api_key)
-        time += step_size * 86400
+    dates  = date_range(time,num_timesteps,step_size)
 
+    #Get all data
+    for i in range(num_timesteps):
+        data[i] = retrieve_data_from_timestep(feature, lat, lon, str(dates[i]), api_key)
 
     return data
