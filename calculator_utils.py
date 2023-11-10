@@ -15,16 +15,12 @@ def call_onecall_timemachine(lat: str = '', lon: str = '', dt: str = '', units: 
     url = "https://api.openweathermap.org/data/3.0/onecall/timemachine?"
 
     #include all parameters that are provided in the URL
-    if lat != '':
-        url += f"&lat={lat}"
-    if lon != '':
-        url += f"&lon={lon}"
-    if dt != '':
-        url += f"&dt={dt}"
+    url += f"&lat={lat}"
+    url += f"&lon={lon}"
+    url += f"&dt={dt}"
     if units != '':
         url += f"&units={units}"
-    if appid != '':
-        url += f"&appid={appid}"
+    url += f"&appid={appid}"
     if lang != '':
         url += f"&lang={lang}"
    
