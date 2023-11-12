@@ -24,7 +24,7 @@ def call_onecall_timemachine(lat: str = '', lon: str = '', dt: str = '', units: 
     if lang != '':
         url += f"&lang={lang}"
    
-    print(url)
+    #print(url)
 
     response = requests.get(url)
 
@@ -75,3 +75,4 @@ def make_list_of_unix_timestamps(unix_start: int, periods: int, freq: str = 'H',
     for item in range:
         unix_list_range.append(int(item.timestamp()))
     return unix_list_range
+

@@ -9,7 +9,7 @@ df_list = []
 # and only then converts them to unix timestamps
 # This should be more robust to anomalies like daylight savings time, leap years, etc.
 # And overall lets pandas handle as much datetime manipulation as possible 
-for timestamp in (calculator_utils.make_list_of_unix_timestamps(unix_start=1584403200, periods=24, freq='H')):
+for timestamp in (calculator_utils.make_list_of_unix_timestamps(unix_start=1177632000, periods=100, freq='H')):
     #get a dataframe for each timestamp
     df = calculator_utils.call_onecall_timemachine(lat='47.4',
                                                      lon='-121.5',
