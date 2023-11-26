@@ -76,3 +76,57 @@ def make_list_of_unix_timestamps(unix_start: int, periods: int, freq: str = 'H',
         unix_list_range.append(int(item.timestamp()))
     return unix_list_range
 
+def df_vis_diff(df: pd.DataFrame, column1: str, column2: str) -> pd.DataFrame:
+    #calculate the difference between two columns in a DataFrame
+    new_df = df[['dt' , column1, column2]].copy()
+    new_df['diff'] = new_df[column1] - new_df[column2]
+    new_df['diff_abs'] = new_df['diff'].abs()
+    new_df['percent_diff_c1'] = new_df['diff_abs'] / new_df[column1] * 100
+    new_df['percent_diff_c2'] = new_df['diff_abs'] / new_df[column2] * 100
+
+    import matplotlib.pyplot as plt
+
+
+    print(f"diff_abs mean: {new_df['diff_abs'].mean()}")
+    print(f"diff_abs variance: {new_df['diff_abs'].var()}")
+
+    print(f"percent_diff_c1 mean: {new_df['percent_diff_c1'].mean()}")
+    print(f"percent_diff_c1 variance: {new_df['percent_diff_c1'].var()}")
+
+    print(f"percent_diff_c2 mean: {new_df['percent_diff_c2'].mean()}")
+    print(f"percent_diff_c2 variance: {new_df['percent_diff_c2'].var()}")
+
+    #plot the difference
+    plt.figure(figsize=(10, 6))
+    plt.plot(pd.to_datetime(new_df['dt'], unit='s'), new_df[column1], label=column1)
+    plt.plot(pd.to_datetime(new_df['dt'], unit='s'), new_df[column2], label=column2)
+    plt.plot(pd.to_datetime(new_df['dt'], unit='s'), new_df['diff'], label='diff')
+    plt.plot(pd.to_datetime(new_df['dt'], unit='s'), new_df['diff_abs'], label='diff_abs')
+
+
+    # Add labels and title for clarity
+    plt.xlabel(f'values')
+    plt.ylabel('dt')
+    plt.title(f' visualization of differences of 2 columns')
+
+    # Display a legend
+    plt.legend()
+
+    # Display the plot
+    plt.show()
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(pd.to_datetime(new_df['dt'], unit='s'), new_df['percent_diff_c1'], label='percent_diff_c1')
+    plt.plot(pd.to_datetime(new_df['dt'], unit='s'), new_df['percent_diff_c2'], label='percent_diff_c2')
+    plt.xlabel(f'percent differences')
+    plt.ylabel('dt')
+    plt.title(f' visualization of differences of 2 columns in %')
+
+    # Display a legend
+    plt.legend()
+
+    # Display the plot
+    plt.show()
+
+    return new_df
+    
