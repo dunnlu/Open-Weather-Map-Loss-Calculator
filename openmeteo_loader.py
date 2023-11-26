@@ -4,8 +4,18 @@ import requests_cache
 import pandas as pd
 from retry_requests import retry
 
+######################
+# Latitude --> A string, the number
+# Longitude --> A string, a string, the number
+# Start_date --> A string, in ISO 8601 form, example: 2023-11-10
+# End_date --> A string, in ISO 8601 form, example: 2023-11-24
+# Timezone --> A string, the timezone --> see https://open-meteo.com/en/docs/historical-weather-api#hourly=&timezone=GMT to see a list of available timezones
+    #                                           Just look at the list, and see how it is written. For example "America/Los_Angeles"
+######################
 
-def call_openmeteo_archive(lat: str = '', lon: str = '', start_dt: str = '',  end_dt: str = '', lang: str = '') -> pd.DataFrame:
+
+
+def call_openmeteo_archive(lat: str = '', lon: str = '', start_dt: str = '',  end_dt: str = '',tz: str = 'GMT') -> pd.DataFrame:
 
     #make sure all required parameters are included
     if (lat == '' or lon == '' or start_dt == '' or end_dt == ''):
@@ -29,7 +39,8 @@ def call_openmeteo_archive(lat: str = '', lon: str = '', start_dt: str = '',  en
         "longitude": float(lon),
         "start_date": start_dt,
         "end_date": end_dt,
-        "hourly": ["temperature_2m", "relative_humidity_2m", "dew_point_2m", "apparent_temperature", "precipitation", "rain", "snowfall", "snow_depth", "weather_code", "pressure_msl", "surface_pressure", "cloud_cover", "cloud_cover_low", "cloud_cover_mid", "cloud_cover_high", "et0_fao_evapotranspiration", "vapour_pressure_deficit", "wind_speed_10m", "wind_speed_100m", "wind_direction_10m", "wind_direction_100m", "wind_gusts_10m", "soil_temperature_0_to_7cm", "soil_temperature_7_to_28cm", "soil_temperature_28_to_100cm", "soil_temperature_100_to_255cm", "soil_moisture_0_to_7cm", "soil_moisture_7_to_28cm", "soil_moisture_28_to_100cm", "soil_moisture_100_to_255cm"]
+        "hourly": ["temperature_2m", "relative_humidity_2m", "dew_point_2m", "apparent_temperature", "precipitation", "rain", "snowfall", "snow_depth", "weather_code", "pressure_msl", "surface_pressure", "cloud_cover", "cloud_cover_low", "cloud_cover_mid", "cloud_cover_high", "et0_fao_evapotranspiration", "vapour_pressure_deficit", "wind_speed_10m", "wind_speed_100m", "wind_direction_10m", "wind_direction_100m", "wind_gusts_10m", "soil_temperature_0_to_7cm", "soil_temperature_7_to_28cm", "soil_temperature_28_to_100cm", "soil_temperature_100_to_255cm", "soil_moisture_0_to_7cm", "soil_moisture_7_to_28cm", "soil_moisture_28_to_100cm", "soil_moisture_100_to_255cm"],
+        "timezone": tz
     }
     responses = openmeteo.weather_api(url, params=params)
 
